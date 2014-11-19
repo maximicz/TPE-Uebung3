@@ -1,23 +1,57 @@
+package ansatz;
 
-public class BinärBaum implements AssociatetiveArray {
+public class Binaerbaum<K> implements AssociativeArray<K> {
 
-	private Binaerknoten wurzel;
+	public Binaerbaum() {
+        root = null;
+    }
 	
-	public BinärBaum(Object key) {
-		this.wurzel = new Binaerknoten(key);
+	protected BinaryNode root;
+	
+	
+	public class BinaryNode {
+	    
+		public Comparable<K> element;
+	    public BinaryNode left;
+	    public BinaryNode right;
+	    
+	    BinaryNode(Comparable<K> K) {
+	        element = K;
+	        left = right = null;
+	    }
+	    
+	   
+	    
 	}
+
+
 	
 	@Override
 	public void clear() {
-		wurzel = null;
+		root = null;
 		
 	}
 
+
 	@Override
-	public boolean conatiansValue() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean conatiansValue(K value) {
+
+		while(element != null) { // Or whatever you use to signal that there is no node.
+	        switch(value.CompareTo(currentNode.Data)) {
+	            case -1:
+	                currentNode = currentNode.Right;
+	                break;
+	            case 1:
+	                currentNode = currentNode.Left;
+	                break;
+	            default: // case 0
+	                return true;
+	        }
+	    }
+	    return false;
+
 	}
+
 
 	@Override
 	public boolean containsKey(String key) {
@@ -25,11 +59,13 @@ public class BinärBaum implements AssociatetiveArray {
 		return false;
 	}
 
+
 	@Override
 	public int get(String key) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 	@Override
 	public boolean isEmpty() {
@@ -37,11 +73,13 @@ public class BinärBaum implements AssociatetiveArray {
 		return false;
 	}
 
+
 	@Override
 	public void put(String key) {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 	@Override
 	public void putAll(String[] array) {
@@ -49,11 +87,13 @@ public class BinärBaum implements AssociatetiveArray {
 		
 	}
 
+
 	@Override
 	public int remove(String key) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 	@Override
 	public int size() {
@@ -61,11 +101,13 @@ public class BinärBaum implements AssociatetiveArray {
 		return 0;
 	}
 
+
 	@Override
 	public int update(int amount, String key) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 	@Override
 	public void forEach() {
@@ -73,11 +115,13 @@ public class BinärBaum implements AssociatetiveArray {
 		
 	}
 
+
 	@Override
 	public void extractAll(String[] array) {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 	@Override
 	public void map() {
@@ -85,5 +129,4 @@ public class BinärBaum implements AssociatetiveArray {
 		
 	}
 
-	
 }

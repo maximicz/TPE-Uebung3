@@ -1,7 +1,10 @@
+import java.util.Set;
 
-public class Binaerknoten {
 
-		  private Object inhalt; 
+public class Binaerknoten<K,T> {
+
+		  K key;
+		  Set<T> elements;
 
 		  private Binaerknoten linkesKind; 
 		  private Binaerknoten rechtesKind; 
