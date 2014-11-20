@@ -11,16 +11,24 @@ import java.util.Iterator;
 		
 		public class Node {
 			
-			K key;
-			V value;
-			Node left, right;
-			int hashKey;
+			private K key;
+			public V value;
+			public Node left, right;
+			private int hashKey;
 			Node node = root;
 
 			public Node(K key, V value, int hashKey) {
 				this.key = key;
 				this.value = value;
 				this.hashKey = key.hashCode();
+			}
+			
+			public K getKey() {
+				return key; 
+			}
+			
+			public V getValue() {
+				return value;
 			}
 		}
 
@@ -74,11 +82,11 @@ import java.util.Iterator;
 				return null;
 			}
 			else {
-				if (node.hashKey == hashKey) {
-					return true;
+				if (node.key.equals(key)) {
+					return node.value;
 				}
-				else if (hashKey < node.hashKey) {
-					return containsKey(hashKey, node.left);
+				else if (key.hashCode() < node.hashKey) {
+					return get(node.left);
 				}
 				else {
 					return containsKey(hashKey, node.right);
