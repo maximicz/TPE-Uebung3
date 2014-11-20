@@ -16,5 +16,5 @@ public interface AssociativeArray<K,V> {
 	public void extractAll(K[]array);
 	public void map();
 	
-	// fertig?
+	// fe
 }
