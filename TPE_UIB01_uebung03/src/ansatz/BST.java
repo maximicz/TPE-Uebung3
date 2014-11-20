@@ -3,7 +3,7 @@ package ansatz;
 import java.util.Iterator;
 
 
-	public class BST <K extends Comparable<K>, V> implements Iterable<K>, AssociativeArray<K, V> {
+	public class BST <K extends Comparable<K>, V extends Comparable<V>> implements Iterable<K>, AssociativeArray<K, V> {
 		
 		private Node root;
 		
@@ -19,12 +19,7 @@ import java.util.Iterator;
 			}
 		}
 
-		@Override
-		public Iterator<K> iterator() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
+		
 		@Override
 		public void clear() {
 			root = null;
@@ -134,6 +129,12 @@ import java.util.Iterator;
 		public void map() {
 			// TODO Auto-generated method stub
 			
+		}
+
+		@Override
+		public Iterator<K> iterator() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 
 		
