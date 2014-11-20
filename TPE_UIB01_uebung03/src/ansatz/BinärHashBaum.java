@@ -3,8 +3,10 @@ package ansatz;
 import java.util.Iterator;
 
 
-	public class BST <K extends Comparable<K>, V extends Comparable<V>> implements Iterable<K>, AssociativeArray<K, V> {
+	public class BinärHashBaum <K extends Comparable<K>, V extends Comparable<V>> implements Iterable<K>, AssociativeArray<K, V> {
 		
+		
+
 		private Node root;
 		
 		private class Node {
@@ -12,13 +14,39 @@ import java.util.Iterator;
 			K key;
 			V value;
 			Node left, right;
+			int hashKey;
 
-			public Node(K key, V value) {
+			public Node(K key, V value, int hashKey) {
 				this.key = key;
 				this.value = value;
+				this.hashKey = key.hashCode();
 			}
 		}
 
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((root == null) ? 0 : root.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			BinärHashBaum other = (BinärHashBaum) obj;
+			if (root == null) {
+				if (other.root != null)
+					return false;
+			} else if (!root.equals(other.root))
+				return false;
+			return true;
+		}
 		
 		@Override
 		public void clear() {
@@ -98,14 +126,15 @@ import java.util.Iterator;
 				x.value = value;
 			}
 			
-			else if (cmp < 0) {
-				x.left  = put(x.left,  key, value);
-			}	
-				else if (cmp > 0) { 
-					x.right = put(x.right, key, value); 
+				else if (cmp < 0) {
+					x.left  = put(x.left,  key, value);
 				}	
+					else if (cmp > 0) { 
+						x.right = put(x.right, key, value); 
+					}	
+			
 			return x;
-			}
+			
 
 			
 		}
@@ -117,9 +146,9 @@ import java.util.Iterator;
 		}
 
 		@Override
-		public K remove(K key) {
+		public V remove(K key) {
 			// TODO Auto-generated method stub
-			return 0;
+			return ;
 		}
 
 		@Override

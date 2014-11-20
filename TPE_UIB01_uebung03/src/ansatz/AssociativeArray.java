@@ -9,7 +9,7 @@ public interface AssociativeArray<K,V> {
 	public boolean isEmpty();
 	public void put(K key, V value);
 	public void putAll(K[] array);
-	public K remove(K key);
+	public V remove(K key);
 	public K size();
 	public K update(int amount, K key);
 	public void forEach();
