@@ -79,13 +79,34 @@ import java.util.Iterator;
 
 		@Override
 		public boolean isEmpty() {
-			// TODO Auto-generated method stub
-			return false;
+			return root == null;
 		}
 
 		@Override
-		public void put(K key) {
-			// TODO Auto-generated method stub
+		public void put(K key, V value) {  
+			root = put(root, key, value);
+		}
+
+		
+		public Node put(Node x, K key, V value) {
+			if (x == null) { 
+				return new Node(key, value);
+			}
+			
+			int cmp = key.compareTo(x.key);
+			if (cmp == 0) {    
+				x.value = value;
+			}
+			
+			else if (cmp < 0) {
+				x.left  = put(x.left,  key, value);
+			}	
+				else if (cmp > 0) { 
+					x.right = put(x.right, key, value); 
+				}	
+			return x;
+			}
+
 			
 		}
 
