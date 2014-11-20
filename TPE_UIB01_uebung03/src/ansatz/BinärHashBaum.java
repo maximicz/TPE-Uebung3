@@ -3,18 +3,19 @@ package ansatz;
 import java.util.Iterator;
 
 
-	public class BinärHashBaum <K extends Comparable<K>, V extends Comparable<V>> implements Iterable<K>, AssociativeArray<K, V> {
+	public class BinärHashBaum <K, V, Node> implements AssociativeArray<K, V, Node> {
 		
 		
 
 		private Node root;
 		
-		private class Node {
+		public class Node {
 			
 			K key;
 			V value;
 			Node left, right;
 			int hashKey;
+			Node node = root;
 
 			public Node(K key, V value, int hashKey) {
 				this.key = key;
@@ -23,30 +24,6 @@ import java.util.Iterator;
 			}
 		}
 
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((root == null) ? 0 : root.hashCode());
-			return result;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			BinärHashBaum other = (BinärHashBaum) obj;
-			if (root == null) {
-				if (other.root != null)
-					return false;
-			} else if (!root.equals(other.root))
-				return false;
-			return true;
-		}
 		
 		@Override
 		public void clear() {
@@ -55,54 +32,58 @@ import java.util.Iterator;
 		}
 
 		@Override
-		public boolean conatiansValue(V value) {
-			Node x = root;
-			 while (x != null) {
-				 int cmp = value.compareTo(x.value);
-				 if (cmp == 0) { 
-					 return true;
-				 }
-				 else if (cmp < 0) { 
-					 x = x.left;
-				 }
-				 else if (cmp > 0)
-					 x = x.right;
-			 	 }
-			 return false;
+		public boolean containsValue(V value, Node node) {
+			if (node == null) {
+				return false;
+			}
+			else {
+				if (node.value == value) {
+					return true;
+				}
+				else if (value < node.value) {
+					return containsValue(value, node.left);
+				}
+				else {
+					return containsValue(value, node.right);
+				}
+			}	
+		}
+		
+		
+		@Override
+		public boolean containsKey(int hashKey, Node node) {
+			if (node == null) {
+				return false;
+			}
+			else {
+				if (node.hashKey == hashKey) {
+					return true;
+				}
+				else if (hashKey < node.hashKey) {
+					return containsKey(hashKey, node.left);
+				}
+				else {
+					return containsKey(hashKey, node.right);
+				}
+			}	
 		}
 
 		@Override
-		public boolean containsKey(K key) {
-			Node x = root;
-			while (x != null) {
-				 int cmp = key.compareTo(x.key);
-				 if (cmp == 0) { 
-					 return true;
-				 }
-				 else if (cmp < 0) { 
-					 x = x.left;
-				 }
-				 else if (cmp > 0)
-					 x = x.right;
-			 	 }
-			 return false;
-		}
-
-		@Override
-		public V get(K key) {
-			 Node x = root;
-			 while (x != null) {
-				 int cmp = key.compareTo(x.key);
-				 if (cmp == 0) { 
-					 return x.value;
-				 }
-				 else if (cmp < 0) { 
-					 x = x.left;
-				 }
-				 else if (cmp > 0)
-					 x = x.right;
-			 	 }
-			 return null;
+		public V get(K key, Node node) {
+			if (node == null) {
+				return null;
+			}
+			else {
+				if (node.hashKey == hashKey) {
+					return true;
+				}
+				else if (hashKey < node.hashKey) {
+					return containsKey(hashKey, node.left);
+				}
+				else {
+					return containsKey(hashKey, node.right);
+				}
+			}	
 		}
 
 		@Override
@@ -182,11 +163,29 @@ import java.util.Iterator;
 		}
 
 		@Override
-		public Iterator<K> iterator() {
-			// TODO Auto-generated method stub
-			return null;
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((root == null) ? 0 : root.hashCode());
+			return result;
 		}
 
-		
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			BinärHashBaum other = (BinärHashBaum) obj;
+			if (root == null) {
+				if (other.root != null)
+					return false;
+			} else if (!root.equals(other.root))
+				return false;
+			return true;
+		}
+
 
 }
