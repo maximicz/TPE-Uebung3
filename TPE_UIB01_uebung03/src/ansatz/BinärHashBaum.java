@@ -3,34 +3,75 @@ package ansatz;
 import java.util.Iterator;
 
 
-	public class BinärHashBaum <K, V, Node> implements AssociativeArray<K, V, Node> {
+	public class BinärHashBaum <K, V> implements AssociativeArray<K, V> {
 		
 		
 
-		private Node root;
-		
-		public class Node {
-			
-			private K key;
-			public V value;
-			public Node left, right;
-			private int hashKey;
-			Node node = root;
-
-			public Node(K key, V value, int hashKey) {
-				this.key = key;
-				this.value = value;
-				this.hashKey = key.hashCode();
-			}
-			
-			public K getKey() {
-				return key; 
-			}
-			
-			public V getValue() {
-				return value;
-			}
+		private Node<K,V> root;
+		public BinärHashBaum(K key, V value) {
+			this.root = new Node<K,V> (key, value);
 		}
+		
+	public class Node<K, V> implements Comparable {
+
+		private K key;
+		public V value;
+		public Node<K, V> left, right, parent;
+		private int hashKey;
+		Node node = root;
+
+		public Node(K key, V value) {
+			this.key = key;
+			this.value = value;
+			this.hashKey = key.hashCode();
+		}
+
+		public K getKey() {
+			return key;
+		}
+
+		public V getValue() {
+			return value;
+		}
+
+		public void setKey(K key) {
+			this.key = key;
+		}
+
+		public void setValue(V value) {
+			this.value = value;
+		}
+
+		private Node<K, V> getLeft() {
+			return left;
+		}
+
+		private void setLeft(Node<K, V> left) {
+			this.left = left;
+		}
+
+		private Node<K, V> getRight() {
+			return right;
+		}
+
+		private void setRight(Node<K, V> right) {
+			this.right = right;
+		}
+
+		private Node<K, V> getParent() {
+			return parent;
+		}
+
+		private void setParent(Node<K, V> parent) {
+			this.parent = parent;
+		}
+
+		@Override
+		public int compareTo(Object o) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+	}
 
 		
 		@Override
@@ -40,7 +81,7 @@ import java.util.Iterator;
 		}
 
 		@Override
-		public boolean containsValue(V value, Node node) {
+		public boolean containsValue(V value, Node<K,V> node) {
 			if (node == null) {
 				return false;
 			}
@@ -48,12 +89,8 @@ import java.util.Iterator;
 				if (node.value == value) {
 					return true;
 				}
-				else if (value < node.value) {
-					return containsValue(value, node.left);
-				}
-				else {
-					return containsValue(value, node.right);
-				}
+					return containsValue(value, node.left) &&
+					containsValue(value, node.right);
 			}	
 		}
 		
@@ -76,20 +113,21 @@ import java.util.Iterator;
 			}	
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public V get(K key, Node node) {
 			if (node == null) {
 				return null;
 			}
 			else {
-				if (node.key.equals(key)) {
-					return node.value;
+				if (node.key == key) {
+					return (V) node.value;
 				}
-				else if (key.hashCode() < node.hashKey) {
-					return get(node.left);
+				else if (key.hashCode() < node.key.hashCode()) {
+					return get(key, node.left);
 				}
 				else {
-					return containsKey(hashKey, node.right);
+					return get(key, node.right);
 				}
 			}	
 		}
@@ -140,10 +178,14 @@ import java.util.Iterator;
 			return ;
 		}
 
+		@SuppressWarnings("rawtypes")
 		@Override
-		public K size() {
-			// TODO Auto-generated method stub
-			return 0;
+		public int size(Node node) {
+			if (node == null) {
+			return 0;	
+			}
+			return 1 + size(node.left) + size(node.right);
+			
 		}
 
 		@Override
