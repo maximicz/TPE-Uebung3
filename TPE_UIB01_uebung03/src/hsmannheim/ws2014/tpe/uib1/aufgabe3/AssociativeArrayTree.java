@@ -2,11 +2,11 @@ package hsmannheim.ws2014.tpe.uib1.aufgabe3;
 
 import java.util.Iterator;
 
-public abstract class BinärHashBaum<K, V> implements AssociativeArray<K, V> {
+public abstract class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 
 	private Node<K, V> root;
 
-	public BinärHashBaum(K key, V value) {
+	public AssociativeArrayTree(K key, V value) {
 		this.root = new Node<K, V>(key, value);
 	}
 
