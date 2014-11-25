@@ -2,7 +2,7 @@ package ansatz;
 
 import java.util.Iterator;
 
-public class BinärHashBaum<K, V> implements AssociativeArray<K, V> {
+public abstract class BinärHashBaum<K, V> implements AssociativeArray<K, V> {
 
 	private Node<K, V> root;
 
