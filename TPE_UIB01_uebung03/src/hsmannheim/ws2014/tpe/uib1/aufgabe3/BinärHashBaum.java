@@ -1,4 +1,4 @@
-package ansatz;
+package hsmannheim.ws2014.tpe.uib1.aufgabe3;
 
 import java.util.Iterator;
 
