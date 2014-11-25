@@ -10,18 +10,17 @@ public abstract class AssociativeArrayTree<K, V> implements AssociativeArray<K, 
 		this.root = new Node<K, V>(key, value);
 	}
 
-	public class Node<K, V> implements Comparable {
+	public class Node<K, V> {
 
 		private K key;
 		public V value;
 		public Node<K, V> left, right, parent;
-		private int hashKey;
-		Node node = root;
+		private int hashKey = key.hashCode();
+		
 
 		public Node(K key, V value) {
 			this.key = key;
 			this.value = value;
-			this.hashKey = key.hashCode();
 		}
 
 		public K getKey() {
@@ -64,11 +63,8 @@ public abstract class AssociativeArrayTree<K, V> implements AssociativeArray<K, 
 			this.parent = parent;
 		}
 
-		@Override
-		public int compareTo(Object o) {
-			// TODO Auto-generated method stub
-			return 0;
-		}
+		
+		
 	}
 
 	@Override
@@ -78,6 +74,12 @@ public abstract class AssociativeArrayTree<K, V> implements AssociativeArray<K, 
 	}
 
 	@Override
+	public boolean containsValue(V value) {
+		Node<K, V> node = this.root;
+		return containsValue(value, node);
+	}
+		
+		
 	public boolean containsValue(V value, Node<K, V> node) {
 		if (node == null) {
 			return false;
@@ -85,13 +87,17 @@ public abstract class AssociativeArrayTree<K, V> implements AssociativeArray<K, 
 			if (node.value == value) {
 				return true;
 			}
-			return containsValue(value, node.left)
-					&& containsValue(value, node.right);
+			return containsValue(value, node.left) && containsValue(value, node.right);
 		}
 	}
 
+	
 	@Override
-	public boolean containsKey(int hashKey, Node node) {
+	public boolean containsKey(K key) {
+		return containsKey(key.hashCode(), root);
+	}
+	
+	public boolean containsKey(int hashKey, Node<K, V> node) {
 		if (node == null) {
 			return false;
 		} else {
@@ -105,18 +111,23 @@ public abstract class AssociativeArrayTree<K, V> implements AssociativeArray<K, 
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public V get(K key, Node node) {
+	public V get(K key) {
+		return get(key.hashCode(), root);
+	}
+	
+	public V get(int hashKey, Node<K, V> node) {
+		
 		if (node == null) {
 			return null;
+			
 		} else {
-			if (node.key == key) {
-				return (V) node.value;
-			} else if (key.hashCode() < node.key.hashCode()) {
-				return get(key, node.left);
+			if (node.hashCode() == (hashKey)) {
+				return node.value;
+			} else if (hashCode() < node.key.hashCode()) {
+				return get(hashKey, node.left);
 			} else {
-				return get(key, node.right);
+				return get(hashKey, node.right);
 			}
 		}
 	}
