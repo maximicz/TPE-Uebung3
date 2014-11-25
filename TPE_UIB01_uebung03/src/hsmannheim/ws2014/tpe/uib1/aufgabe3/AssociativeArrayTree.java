@@ -2,7 +2,8 @@ package hsmannheim.ws2014.tpe.uib1.aufgabe3;
 
 import java.util.Iterator;
 
-public abstract class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
+public abstract class AssociativeArrayTree<K, V> implements
+		AssociativeArray<K, V> {
 
 	private Node<K, V> root;
 
@@ -16,7 +17,6 @@ public abstract class AssociativeArrayTree<K, V> implements AssociativeArray<K, 
 		public V value;
 		public Node<K, V> left, right, parent;
 		private int hashKey = key.hashCode();
-		
 
 		public Node(K key, V value) {
 			this.key = key;
@@ -63,8 +63,6 @@ public abstract class AssociativeArrayTree<K, V> implements AssociativeArray<K, 
 			this.parent = parent;
 		}
 
-		
-		
 	}
 
 	@Override
@@ -78,8 +76,7 @@ public abstract class AssociativeArrayTree<K, V> implements AssociativeArray<K, 
 		Node<K, V> node = this.root;
 		return containsValue(value, node);
 	}
-		
-		
+
 	public boolean containsValue(V value, Node<K, V> node) {
 		if (node == null) {
 			return false;
@@ -87,16 +84,16 @@ public abstract class AssociativeArrayTree<K, V> implements AssociativeArray<K, 
 			if (node.value == value) {
 				return true;
 			}
-			return containsValue(value, node.left) && containsValue(value, node.right);
+			return containsValue(value, node.left)
+					&& containsValue(value, node.right);
 		}
 	}
 
-	
 	@Override
 	public boolean containsKey(K key) {
 		return containsKey(key.hashCode(), root);
 	}
-	
+
 	public boolean containsKey(int hashKey, Node<K, V> node) {
 		if (node == null) {
 			return false;
@@ -115,12 +112,12 @@ public abstract class AssociativeArrayTree<K, V> implements AssociativeArray<K, 
 	public V get(K key) {
 		return get(key.hashCode(), root);
 	}
-	
+
 	public V get(int hashKey, Node<K, V> node) {
-		
+
 		if (node == null) {
 			return null;
-			
+
 		} else {
 			if (node.hashCode() == (hashKey)) {
 				return node.value;
@@ -139,27 +136,32 @@ public abstract class AssociativeArrayTree<K, V> implements AssociativeArray<K, 
 
 	@Override
 	public void put(K key, V value) {
-		root = put(root, key, value);
+		Node<K, V> newNode = new Node<K, V>(key, value);
+		if (newNode.key.hashCode() < root.key.hashCode()) {
+			if (root.left == null)
+				root.left = newNode;
+			else
+				put(root.left, newNode);
+		} else {
+			if (root.right == null)
+				root.right = newNode;
+			else
+				put(root.right, newNode);
+		}
 	}
 
-	public Node put(Node x, K key, V value) {
-		if (x == null) {
-			return new Node(key, value);
+	public void put(Node<K, V> node, Node<K, V> newNode) {
+		if (newNode.key.hashCode() < node.key.hashCode()) {
+			if (node.left == null)
+				node.left = newNode;
+			else
+				put(node.left, newNode);
+		} else {
+			if (node.right == null)
+				node.right = newNode;
+			else
+				put(node.right, newNode);
 		}
-
-		int cmp = key.compareTo(x.key);
-		if (cmp == 0) {
-			x.value = value;
-		}
-
-		else if (cmp < 0) {
-			x.left = put(x.left, key, value);
-		} else if (cmp > 0) {
-			x.right = put(x.right, key, value);
-		}
-
-		return x;
-
 	}
 
 	@Override
@@ -168,41 +170,56 @@ public abstract class AssociativeArrayTree<K, V> implements AssociativeArray<K, 
 
 	}
 
+	
 	@Override
 	public V remove(K key) {
 
-		return remove(root, key);
 	}
 
-	@SuppressWarnings("rawtypes")
+	
 	@Override
 	public int size(Node node) {
 		if (node == null) {
 			return 0;
-		} 
-		if (node.left && node.right =! null){
-		return 1 + size(node.left) + size(node.right);
+		}
+
+		else
+			return 1 + size(node.left) + size(node.right);
 
 	}
 
+	
 	@Override
-	public K update(int amount, K key) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void update(K key, V value) {
+		if (containsKey(key) == true)
+			update(root, key, value);
 	}
 
+	private void update(Node<K, V> node, K key, V value) {
+		if (node.getKey() == key) {
+			node.setValue(value);
+		} else if (node.getKey().hashCode() < key.hashCode()) {
+			update(node.getRight(), key, value);
+		} else {
+			update(node.getLeft(), key, value);
+		}
+	}
+
+	
 	@Override
-	public void forEach() {
+	public void forEach(BiConsumer<K, V> lambda) {
 		// TODO Auto-generated method stub
 
 	}
 
+	
 	@Override
 	public void extractAll(K[] array) {
 		// TODO Auto-generated method stub
 
 	}
 
+	
 	@Override
 	public void map() {
 		// TODO Auto-generated method stub

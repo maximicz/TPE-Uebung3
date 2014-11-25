@@ -80,13 +80,6 @@ public interface AssociativeArray<K, V> {
 	
 	public void put(K key, V value);
 
-	/**
-	 * F�gt das �bergebene assoziative Array dem aktuellen assoziativen Array
-	 * hinzu
-	 *
-	 * @param other
-	 *            Das �bergebene AssociativeArray
-	 */
 	
 	public void putAll(AssociativeArray<K, V> other);
 
