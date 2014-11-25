@@ -14,8 +14,8 @@ public abstract class AssociativeArrayTree<K, V> implements
 	public class Node<K, V> {
 
 		private K key;
-		public V value;
-		public Node<K, V> left, right, parent;
+		private V value;
+		private Node<K, V> left, right, parent;
 		private int hashKey = key.hashCode();
 
 		public Node(K key, V value) {
@@ -170,13 +170,11 @@ public abstract class AssociativeArrayTree<K, V> implements
 
 	}
 
-	
 	@Override
 	public V remove(K key) {
 
 	}
 
-	
 	@Override
 	public int size(Node node) {
 		if (node == null) {
@@ -188,7 +186,6 @@ public abstract class AssociativeArrayTree<K, V> implements
 
 	}
 
-	
 	@Override
 	public void update(K key, V value) {
 		if (containsKey(key) == true)
@@ -205,21 +202,26 @@ public abstract class AssociativeArrayTree<K, V> implements
 		}
 	}
 
-	
 	@Override
 	public void forEach(BiConsumer<K, V> lambda) {
-		// TODO Auto-generated method stub
+		forEach(consumer, root);
 
 	}
 
-	
+	void forEach(BiConsumer<S, T> consumer, Node n) {
+		if (n != null) {
+			consumer.accept(n.key, n.value);
+			forEach(consumer, n.left);
+			forEach(consumer, n.right);
+		}
+	}
+
 	@Override
 	public void extractAll(K[] array) {
 		// TODO Auto-generated method stub
 
 	}
 
-	
 	@Override
 	public void map() {
 		// TODO Auto-generated method stub
@@ -242,7 +244,7 @@ public abstract class AssociativeArrayTree<K, V> implements
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BinärHashBaum other = (BinärHashBaum) obj;
+		AssociativeArrayTree other = (AssociativeArrayTree) obj;
 		if (root == null) {
 			if (other.root != null)
 				return false;
@@ -251,4 +253,5 @@ public abstract class AssociativeArrayTree<K, V> implements
 		return true;
 	}
 
+	
 }
