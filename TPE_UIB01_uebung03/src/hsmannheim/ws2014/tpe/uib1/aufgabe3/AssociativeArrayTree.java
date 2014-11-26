@@ -249,6 +249,14 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 		}
 	}
 
+	/**
+	 * Methode ruft containsKey() mit dem zusätzlichen Parameter root auf
+	 * 
+	 * @param key
+	 *  
+	 *  @return liefert Aussage ob Schlüssel enthalten ist
+	 */
+	
 	@Override
 	public boolean containsKey(K key) {
 		return containsKey(key.hashCode(), root);

@@ -36,7 +36,7 @@ public class Dictionary extends AssociativeArrayTree<String, String> {
 
 		String keyArray[] = new String[size() - 1];
 
-		keysRek(keyArray, this.root, 0);
+		keys(keyArray, this.root, 0);
 
 		return keyArray;
 	}
@@ -52,7 +52,7 @@ public class Dictionary extends AssociativeArrayTree<String, String> {
 	 *            the count
 	 */
 
-	private void keysRek(String[] keyArray, Node<String, String> node, int count) {
+	private void keys(String[] keyArray, Node<String, String> node, int count) {
 
 		if (node == null) {
 
@@ -60,8 +60,8 @@ public class Dictionary extends AssociativeArrayTree<String, String> {
 
 			keyArray[count] = node.getKey();
 
-			keysRek(keyArray, node.getLeft(), count + 1);
-			keysRek(keyArray, node.getRight(), count + 1);
+			keys(keyArray, node.getLeft(), count + 1);
+			keys(keyArray, node.getRight(), count + 1);
 		}
 	}
 
@@ -76,7 +76,7 @@ public class Dictionary extends AssociativeArrayTree<String, String> {
 
 		String valueArray[] = new String[size() - 1];
 
-		valuesRek(valueArray, this.root, 0);
+		values(valueArray, this.root, 0);
 
 		return valueArray;
 	}
@@ -92,7 +92,7 @@ public class Dictionary extends AssociativeArrayTree<String, String> {
 	 *            the count
 	 */
 
-	private void valuesRek(String[] valueArray, Node<String, String> node,
+	private void values(String[] valueArray, Node<String, String> node,
 			int count) {
 
 		if (node == null) {
@@ -101,8 +101,8 @@ public class Dictionary extends AssociativeArrayTree<String, String> {
 
 			valueArray[count] = node.getValue();
 
-			valuesRek(valueArray, node.getLeft(), count + 1);
-			valuesRek(valueArray, node.getRight(), count + 1);
+			values(valueArray, node.getLeft(), count + 1);
+			values(valueArray, node.getRight(), count + 1);
 		}
 	}
 
