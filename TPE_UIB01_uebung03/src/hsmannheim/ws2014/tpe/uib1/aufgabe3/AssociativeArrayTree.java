@@ -1,66 +1,104 @@
 package hsmannheim.ws2014.tpe.uib1.aufgabe3;
 
-import java.util.Iterator;
+import java.util.function.*;
 
-public abstract class AssociativeArrayTree<K, V> implements
+public class AssociativeArrayTree<K, V> implements
 		AssociativeArray<K, V> {
 
-	private Node<K, V> root;
+	protected Node<K, V> root;
 
 	public AssociativeArrayTree(K key, V value) {
 		this.root = new Node<K, V>(key, value);
 	}
 
-	public class Node<K, V> {
+	public static class Node<K, V> {
 
-		private K key;
-		private V value;
-		private Node<K, V> left, right, parent;
-		private int hashKey = key.hashCode();
+		protected K key;
+		protected V value;
+		protected Node<K, V> left, right, parent;
+		protected int hashKey = key.hashCode();
 
 		public Node(K key, V value) {
 			this.key = key;
 			this.value = value;
 		}
 
-		public K getKey() {
+		protected K getKey() {
 			return key;
 		}
 
-		public V getValue() {
+		protected V getValue() {
 			return value;
 		}
 
-		public void setKey(K key) {
+		protected void setKey(K key) {
 			this.key = key;
 		}
 
-		public void setValue(V value) {
+		protected void setValue(V value) {
 			this.value = value;
 		}
 
-		private Node<K, V> getLeft() {
+		protected Node<K, V> getLeft() {
 			return left;
 		}
 
-		private void setLeft(Node<K, V> left) {
+		protected void setLeft(Node<K, V> left) {
 			this.left = left;
 		}
 
-		private Node<K, V> getRight() {
+		protected Node<K, V> getRight() {
 			return right;
 		}
 
-		private void setRight(Node<K, V> right) {
+		protected void setRight(Node<K, V> right) {
 			this.right = right;
 		}
 
-		private Node<K, V> getParent() {
+		protected Node<K, V> getParent() {
 			return parent;
 		}
 
-		private void setParent(Node<K, V> parent) {
+		protected void setParent(Node<K, V> parent) {
 			this.parent = parent;
+		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + getOuterType().hashCode();
+			result = prime * result + ((key == null) ? 0 : key.hashCode());
+			result = prime * result + ((value == null) ? 0 : value.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Node other = (Node) obj;
+			if (!getOuterType().equals(other.getOuterType()))
+				return false;
+			if (key == null) {
+				if (other.key != null)
+					return false;
+			} else if (!key.equals(other.key))
+				return false;
+			if (value == null) {
+				if (other.value != null)
+					return false;
+			} else if (!value.equals(other.value))
+				return false;
+			return true;
+		}
+
+		private AssociativeArrayTree<K, V> getOuterType() {
+			return AssociativeArrayTree.this;
 		}
 
 	}
@@ -165,8 +203,10 @@ public abstract class AssociativeArrayTree<K, V> implements
 	}
 
 	@Override
-	public void putAll(K[] array) {
-		// TODO Auto-generated method stub
+	public void putAll(AssociativeArrayTree<K, V> tree) {
+		if (tree != null) {
+			extractAll(tree.root, this.root);
+		}
 
 	}
 
@@ -176,7 +216,11 @@ public abstract class AssociativeArrayTree<K, V> implements
 	}
 
 	@Override
-	public int size(Node node) {
+	public int size() {
+		return size(this.root);
+	}
+
+	public int size(Node<K, V> node) {
 		if (node == null) {
 			return 0;
 		}
@@ -203,12 +247,12 @@ public abstract class AssociativeArrayTree<K, V> implements
 	}
 
 	@Override
-	public void forEach(BiConsumer<K, V> lambda) {
+	public void forEach(BiConsumer<?, ?> lambda) {
 		forEach(consumer, root);
 
 	}
 
-	void forEach(BiConsumer<S, T> consumer, Node n) {
+	public void forEach(BiConsumer<K, V> consumer, Node n) {
 		if (n != null) {
 			consumer.accept(n.key, n.value);
 			forEach(consumer, n.left);
@@ -217,9 +261,28 @@ public abstract class AssociativeArrayTree<K, V> implements
 	}
 
 	@Override
-	public void extractAll(K[] array) {
-		// TODO Auto-generated method stub
+	public void extractAll(AssociativeArrayTree<K, V> tree) {
+		if (this.root != null) {
+			extractAll(this.root, tree.root);
+		}
 
+	}
+
+	private void extractAll(Node<K, V> extractThis, Node<K, V> tree) {
+		if (extractThis == null) {
+
+		} else {
+
+			Node<K, V> temp = new Node<K, V>(extractThis.getKey(),
+					extractThis.getValue());
+
+			put(temp, tree);
+
+			extractAll(extractThis.getLeft(), tree);
+			extractAll(extractThis.getRight(), tree);
+		}
+
+		this.root = null;
 	}
 
 	@Override
@@ -229,29 +292,15 @@ public abstract class AssociativeArrayTree<K, V> implements
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((root == null) ? 0 : root.hashCode());
-		return result;
+	public void forEach(BiConsumer<?, ?> lambda) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AssociativeArrayTree other = (AssociativeArrayTree) obj;
-		if (root == null) {
-			if (other.root != null)
-				return false;
-		} else if (!root.equals(other.root))
-			return false;
-		return true;
+	public AssociativeArrayTree<?, ?> map(BiFunction<?, ?, ?> lambda) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	
 }

@@ -3,103 +3,116 @@ package hsmannheim.ws2014.tpe.uib1.aufgabe3;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 
+
+
 /**
- *
- * Interface, dass ein generisches assoziatives Array beschreibt. Dabei wird
- * jedem Schl�ssel vom Datentyp <code>K</code> ein Wert des Datentyps <code>V
- * </code> zugeordnet.
- *
- * @author
- *
+ * Hier stehen die Vorlagen zu den Methoden, die in den anderen Klassen genutzt
+ * werden sollen. Es handelt sich hierbei um Interface-Methoden, welche leer
+ * stehen. Das Ziel ist die Entwicklung eines typsicheren assoziativen Array.
+ * 
+ * @author Sovann Som 1326670
+ * @author Maximilian Czerwonka 1415407
+ * @author Stephen Kessler 1412750
+ * @version JDK8.0
  *
  * @param <K>
- *            Datentyp des Schl�ssels (key), nach dem die Schl�ssel-Wert-Paare
- *            sortiert werden
+ *            den Schlüssel des Knotens
  * @param <V>
- *            Datentyp des Wertes (value)
+ * 
+ *            Der zugewiesene Wert des Schlüssels
  */
+
 public interface AssociativeArray<K, V> {
-	
+
 	/**
-	 * L�scht alle Elemente des assoziativen Arrays
+	 * L�scht alle Elemente des assoziativen Arrays.
 	 */
-	
+
 	public void clear();
 
 	/**
-	 * Gibt zur�ck, ob ein �bergebener Wert im Array gespeichert ist
-	 *
+	 * In dieser Methode wird überprüft, ob sich das gesuchte Element
+	 * <code>K</code> mit dem Wert <code>V</code> im assoziativen Array
+	 * befindet.
+	 * 
 	 * @param value
-	 *            Der �bergebene Wert
-	 * @return <code>true</code>, wenn <code>value</code> im Array enthalten
-	 *         ist, <code>false</code>, wenn nicht
+	 *            Wert, der im assoziativen Array vorhanden ist
+	 * @return true or false
 	 */
-	
+
 	public boolean containsValue(V value);
 
 	/**
-	 * Gibt zur�ck, ob ein �bergebener Schl�ssel im Array gespeichert ist
-	 *
+	 * Diese Methode überprüft, ob der Knoten eine eingegebene Schlüsselnummer
+	 * <code>K</code> besitzt.
+	 * 
 	 * @param key
-	 *            Der �bergebene Schl�ssel
-	 * @return <code>true</code>, wenn <code>key</code> im Array enthalten ist,
-	 *         <code>false</code>, wenn nicht
+	 *            der gesuchte Schlüssel
+	 * @return true or false
 	 */
-	
+
 	public boolean containsKey(K key);
 
 	/**
-	 * Gibt den passenden Wert <code>value</code> zum �bergebenen Schl�ssel
-	 * <code>key</code>
-	 *
+	 * Soll zu einem gegebenen Schlüssel <code>K</code> den dazugehörigen Wert
+	 * <code>V</code> aus.
+	 * 
 	 * @param key
-	 *            Der �bergebene Schl�ssel
-	 * @return Der passende Wert
+	 *            der gesuchte Schlüssel
+	 * @return Der Wert des gesuchten Schlüssel
 	 */
-	
+
 	public V get(K key);
 
 	/**
-	 * �berpr�ft ob das assoziative Array leer ist.
-	 *
-	 * @return <code>true</code> wenn das Array leer ist, <code>false</code>
-	 *         wenn im Array Elemente enthalten sind.
+	 * Diese simple Methode prüft, ob das assoziative Array leer ist.
+	 * 
+	 * @return null or assoziate array
 	 */
-	
+
 	public boolean isEmpty();
 
 	/**
-	 * Speichert den �bergebenen Schl�ssel <code>key</code> und den Wert
-	 * <code>value</code> im assoziativen Array
-	 *
+	 * Mit dieser Methode kann ich einen neuen Knoten zum baum hinzufügen, der
+	 * jeweils einen eigenen Wert zugewiesen bekommt.
+	 * 
 	 * @param key
-	 *            Der �bergebene Schl�ssel
+	 *            neuer Schlüssel zum Einfügen
 	 * @param value
-	 *            Der �bergebene Wert
+	 *            Wert des neu hinzugefügten Schlüssel
 	 */
-	
+
 	public void put(K key, V value);
 
-	
-	public void putAll(AssociativeArray<K, V> other);
+	/**
+	 * Mit dieser Methode kann man beliebig viele neue Knoten mit Werten dem
+	 * aktuellen assoziativen Array zuordnen.
+	 * 
+	 * @param tree
+	 *            AssociativeArray<K,V>
+	 */
+
+	public void putAll(AssociativeArrayTree<K, V> tree);
 
 	/**
-	 * Enfernt ein Schl�ssel-Wert-Paar aus dem momentanen assoziativen Array und
-	 * gibt den Wert zur�ck.
-	 *
+	 * Mit dieser Methode erfüllt man 2 verschiedene Funktionen. Zum einen wird
+	 * der eingegebene Schlüssel aus dem baum gelöscht, sofern er darin
+	 * enthalten ist. Dabei wird der Schlüssel des gelöschten Knoten ausgelesen.
+	 * 
 	 * @param key
-	 *            Der �bergebene Schl�ssel
-	 * @return Der entsprechende Wert
+	 *            der Schlüssel, den man im assoisiativen Array löschen will
+	 * @return den Wert <code>V</code> des gelöschten Knoten
 	 */
-	
+
 	public V remove(K key);
 
 	/**
-	 * Gibt die Anzahl der Schl�ssel-Wert-Paare zur�ck.
-	 *
-	 * @return Anzahl der Paare
+	 * Mit dieser Methode wird das komplette assoziative Array durchlaufen, und
+	 * dabei die Anzahl der Schlüssel-Werz-Paare gezählt.
+	 * 
+	 * @return anzahl der Schlüssel im assoziativen Array
 	 */
-	
+
 	public int size();
 
 	/**
@@ -111,7 +124,7 @@ public interface AssociativeArray<K, V> {
 	 * @param value
 	 *            der neue �bergebne Wert.
 	 */
-	
+
 	public void update(K key, V value);
 
 	/**
@@ -121,18 +134,18 @@ public interface AssociativeArray<K, V> {
 	 * @param lambda
 	 *            Der �bergebene BiConsumer.
 	 */
-	
-	public void forEach(BiConsumer<K, V> lambda);
+
+	public void forEach(BiConsumer<?, ?> lambda);
 
 	/**
 	 * f�gt alle Schl�ssel-Wert-Paare des momentanen associativen Arrays einem
 	 * �bergebenen associativen Arrays hinzu.
 	 *
-	 * @param other
+	 * @param tree
 	 *            �bergebenes assoziatives Array.
 	 */
-	
-	public void extractAll(AssociativeArray<K, V> other);
+
+	public void extractAll(AssociativeArrayTree<K, V> tree);
 
 	/**
 	 * F�hrt die �bergebene <code>BiFunction</code> bei allen
@@ -143,6 +156,7 @@ public interface AssociativeArray<K, V> {
 	 *            Die �bergebene BiFunction.
 	 * @return Das neue assoziative Array.
 	 */
-	
-	public AssociativeArray<K, V> map(BiFunction lambda);
+
+	public AssociativeArrayTree<?, ?> map(BiFunction<?, ?, ?> lambda);
 }
+
