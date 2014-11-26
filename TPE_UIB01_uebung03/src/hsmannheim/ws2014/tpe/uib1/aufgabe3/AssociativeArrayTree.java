@@ -8,7 +8,7 @@ import java.util.function.*;
 /**
  * Die Klasse AssociativeArrayTree, welches die Interfacemethoden aus der
  * Interfaceklasse implementiert, bietet Funktionen an, um ein assoziatives
- * Array zu erzeugen. Diewe wird in einer binären baum-Datenstruktur
+ * Array zu erzeugen. Diese wird in einer binären Baum-Datenstruktur
  * festgehalten.
  * 
  *
@@ -52,7 +52,7 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	/**
 	 * Die innere Klasse Node dient zur Erzeugung der äußeren Klasse
 	 * AssociativeArrayTree. Die innere Klasse hat darüber hinaus die Funktion,
-	 * dass sie die Knoten des baumes erzeugt.
+	 * dass sie die Knoten des Baumes erzeugt.
 	 *
 	 * @param <K>
 	 *            Der generische Schlüsseltyp der einzelnen Knoten
@@ -80,7 +80,7 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 
 		/**
 		 * Mit dem Konstruktor Node werden Knoten für diesen Baum erzeugt. Der
-		 * Knoten besitzt ebenfalls einen wert und einen dazugehörigen
+		 * Knoten besitzt ebenfalls einen Wert und einen dazugehörigen
 		 * Schlüssel.
 		 *
 		 * @param key
@@ -126,7 +126,7 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 		}
 
 		/**
-		 * In dieser Methode wird der Wert eines Knotens ausgelesen.
+		 * In dieser Methode wird der Wert eines Knotens gesetzt.
 		 *
 		 * @param value
 		 *            Den gesetzten Wert
@@ -180,7 +180,7 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 
 		/**
 		 * In dieser Methode wird der Elternknoten ausgelesen, welcher Eltern
-		 * zweier anderen knoten ist.
+		 * zweier anderen Knoten ist.
 		 *
 		 * @return the parent den Elternknoten auslesen
 		 */
@@ -202,13 +202,23 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 		}
 
 	}
-
+	
+	/**
+	* Die Methode clear soll das assoziative Array leeren
+	* 
+	*/
+	
 	@Override
 	public void clear() {
 		root = null;
 
 	}
-
+	
+	/**
+	* Die Methode containsValue soll �berpr�fen, ob der �bergebene Wert im assoziativen Array vorkommt
+	* 
+	*/ 
+	
 	@Override
 	public boolean containsValue(V value) {
 		Node<K, V> node = this.root;
@@ -274,7 +284,7 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	}
 
 	/**
-	 * Gibt den Wert eines Gebenen Knoten raus. Der gesuchte Schlüssel wird
+	 * Gibt den Wert eines gegebenen Knoten raus. Der gesuchte Schlüssel wird
 	 * eingegeben.
 	 *
 	 * @param hashKey
@@ -301,7 +311,7 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	}
 
 	/**
-	 * Methode überprüft ob der baum leer ist
+	 * Methode überprüft ob der Baum leer ist
 	 *
 	 * 
 	 * @return true, wenn leer
@@ -329,7 +339,7 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	}
 
 	/**
-	 * Mit dieser Methode wird ein neuer Knoten erzeugt und dem baum
+	 * Mit dieser Methode wird ein neuer Knoten erzeugt und dem Baum
 	 * hinzugefügt.
 	 *
 	 * @param node
@@ -352,12 +362,9 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * hsmannheim.ws2014.tpe.uib1.aufgabe3.AssociativeArray#putAll(hsmannheim
-	 * .ws2014.tpe.uib1.aufgabe3.AssociativeArrayTree)
+	/**
+	 * putAll soll alle Schlussel-Wert-Paare des �bergebenen assoziativen Arrays zum 
+	 * aktuellen assoziativen Array hinzufugen 	
 	 */
 
 	@Override
@@ -368,14 +375,12 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * hsmannheim.ws2014.tpe.uib1.aufgabe3.AssociativeArray#remove(java.lang
-	 * .Object)
+	
+	/**
+	 * * remove soll das Schlussel-Wert-Paar des �bergebenen Schl�ssels aus dem 
+	 * assoziativen Array entfernen und den Wert zuruckliefern
 	 */
-
+	
 	@Override
 	public void remove(K key) {
 		if (containsKey(key)) {
@@ -411,10 +416,8 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see hsmannheim.ws2014.tpe.uib1.aufgabe3.AssociativeArray#size()
+	/**
+	 * size soll die Anzahl der Schlussel-Wert-Paare zur�ckgeben
 	 */
 
 	@Override
@@ -423,7 +426,7 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	}
 
 	/**
-	 * Gibt die Größe des baumes aus.
+	 * Gibt die Größe des Baumes aus.
 	 *
 	 * @param node
 	 *            die Knoten
@@ -440,13 +443,7 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * hsmannheim.ws2014.tpe.uib1.aufgabe3.AssociativeArray#update(java.lang
-	 * .Object, java.lang.Object)
-	 */
+	
 
 	@Override
 	public void update(K key, V value) {
@@ -475,35 +472,7 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * hsmannheim.ws2014.tpe.uib1.aufgabe3.AssociativeArray#forEach(java.util
-	 * .function.BiConsumer)
-	 */
-
-	/*
-	 * @Override public void forEach(BiConsumer<?, ?> lambda) {
-	 * forEach(consumer, root);
-	 * 
-	 * }
-	 * 
-	 * /** Diese Methode führt den BiConsumer in allen Knoten aus.
-	 * 
-	 * @param consumer the consumer
-	 * 
-	 * @param n the n
-	 */
-	/*
-	 * public void forEach(BiConsumer<K, V> consumer, Node n) { if (n != null) {
-	 * consumer.accept(n.key, n.value); forEach(consumer, n.left);
-	 * forEach(consumer, n.right); } }\ /* (non-Javadoc)
-	 * 
-	 * @see
-	 * hsmannheim.ws2014.tpe.uib1.aufgabe3.AssociativeArray#extractAll(hsmannheim
-	 * .ws2014.tpe.uib1.aufgabe3.AssociativeArrayTree)
-	 */
+	
 
 	@Override
 	public void extractAll(AssociativeArrayTree<K, V> tree) {
@@ -514,7 +483,8 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	}
 
 	/**
-	 * Extract all.
+	 * extractAll soll alle Schlussel-Wert-Paare des aktuellen assoziativen Arrays zum 
+	 * �bergebenen assoziativen Array hinzufugen
 	 *
 	 * @param extractThis
 	 *            the extract this
@@ -539,9 +509,7 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 		this.root = null;
 	}
 
-	/**
-	 * Map.
-	 */
+	
 
 	@Override
 	public int hashCode() {
@@ -575,6 +543,11 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 		return null;
 	}
 
+	/**
+	 * forEach soll den ubergebenen BiConsumer fur alle Schl�ssel-Wert-Paare 
+	 * des assoziativen Arrays ausf�hren 
+	 */
+	
 	@Override
 	public void forEach(BiConsumer<?, ?> lambda) {
 		// TODO Auto-generated method stub
