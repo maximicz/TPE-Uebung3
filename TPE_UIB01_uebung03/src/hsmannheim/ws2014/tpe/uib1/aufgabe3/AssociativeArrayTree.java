@@ -42,6 +42,9 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 		this.root = new Node<K, V>(key, value);
 	}
 
+	public AssociativeArrayTree() {
+	}
+	
 	public AssociativeArrayTree(Node<K,V> root) {
 		this.root = root;
 	}

@@ -3,8 +3,6 @@ package hsmannheim.ws2014.tpe.uib1.aufgabe3;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
 
 public class AssociativeArrayTreeTest {
 
@@ -15,7 +13,7 @@ public class AssociativeArrayTreeTest {
 		public void testArray() {
 
 			
-			AssociativeArrayTree<Object, Object> werte = new AssociativeArrayTree<K,V>();
+			AssociativeArrayTree<Object, Object> werte = new AssociativeArrayTree<Object, Object>();
 			
 			
 			werte.put("zehn", 10);
