@@ -44,8 +44,8 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 
 	public AssociativeArrayTree() {
 	}
-	
-	public AssociativeArrayTree(Node<K,V> root) {
+
+	public AssociativeArrayTree(Node<K, V> root) {
 		this.root = root;
 	}
 
@@ -202,23 +202,24 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 		}
 
 	}
-	
+
 	/**
-	* Die Methode clear soll das assoziative Array leeren
-	* 
-	*/
-	
+	 * Die Methode clear soll das assoziative Array leeren
+	 * 
+	 */
+
 	@Override
 	public void clear() {
 		root = null;
 
 	}
-	
+
 	/**
-	* Die Methode containsValue soll überprüfen, ob der übergebene Wert im assoziativen Array vorkommt
-	* 
-	*/ 
-	
+	 * Die Methode containsValue soll ï¿½berprï¿½fen, ob der ï¿½bergebene Wert im
+	 * assoziativen Array vorkommt
+	 * 
+	 */
+
 	@Override
 	public boolean containsValue(V value) {
 		Node<K, V> node = this.root;
@@ -288,9 +289,9 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	 * eingegeben.
 	 *
 	 * @param hashKey
-	 *            the hash key
+	 *            den Hashwert
 	 * @param node
-	 *            the node
+	 *            den Knoten
 	 * @return the v
 	 */
 
@@ -343,9 +344,9 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	 * hinzugefÃ¼gt.
 	 *
 	 * @param node
-	 *            the node
+	 *            der Knoten
 	 * @param newNode
-	 *            the new node
+	 *            der neue Knoten
 	 */
 
 	public void put(Node<K, V> node, Node<K, V> newNode) {
@@ -363,8 +364,8 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	}
 
 	/**
-	 * putAll soll alle Schlussel-Wert-Paare des übergebenen assoziativen Arrays zum 
-	 * aktuellen assoziativen Array hinzufugen 	
+	 * putAll soll alle Schlussel-Wert-Paare des ï¿½bergebenen assoziativen Arrays
+	 * zum aktuellen assoziativen Array hinzufugen
 	 */
 
 	@Override
@@ -375,17 +376,16 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 
 	}
 
-	
 	/**
-	 * * remove soll das Schlussel-Wert-Paar des übergebenen Schlüssels aus dem 
+	 * * remove soll das Schlussel-Wert-Paar des ï¿½bergebenen Schlï¿½ssels aus dem
 	 * assoziativen Array entfernen und den Wert zuruckliefern
 	 */
-	
+
 	@Override
 	public void remove(K key) {
 		if (containsKey(key)) {
-			Node<K,V> node = getNode(key);
-			Node<K,V> parentNode = node.parent;
+			Node<K, V> node = getNode(key);
+			Node<K, V> parentNode = node.parent;
 			if (parentNode.left == node) {
 				parentNode.setLeft(null);
 			} else {
@@ -395,15 +395,32 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 			putAll(new AssociativeArrayTree<K, V>(node.left));
 		}
 
-		
 	}
-	
-	public Node<K,V> getNode(K key) {
-			return getNode(key, root);
+
+	/**
+	 * Diese Methode gibt den Knoten aus.
+	 * 
+	 * @param key der SchlÃ¼ssel
+	 * @return den Knoten
+	 */
+
+	public Node<K, V> getNode(K key) {
+		return getNode(key, root);
 	}
-	
-	
-	private Node<K,V> getNode(K key, Node<K,V> node) {
+
+	/**
+	 * Diese Methode gibt einen Knoten aus, sofern beide hashCode gleich sind.
+	 * Wenn der Node grÃ¶ÃŸer als der als der Hashcode ist, wird sie an dem Linken
+	 * Knoten angefÃ¼gt, ansonsten den Rechten.
+	 * 
+	 * @param key
+	 *            Der SchlÃ¼ssel
+	 * @param node
+	 *            der Knoten
+	 * @return
+	 */
+
+	private Node<K, V> getNode(K key, Node<K, V> node) {
 		if (node != null) {
 			if (node.key.hashCode() == key.hashCode()) {
 				return node;
@@ -417,7 +434,7 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	}
 
 	/**
-	 * size soll die Anzahl der Schlussel-Wert-Paare zurückgeben
+	 * size soll die Anzahl der Schlussel-Wert-Paare zurï¿½ckgeben
 	 */
 
 	@Override
@@ -426,7 +443,7 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	}
 
 	/**
-	 * Gibt die GrÃ¶ÃŸe des Baumes aus.
+	 * Gibt die GrÃ¶ÃŸe des Baumes aus. Wenn es keinen Knoten gibt, gebe null aus.
 	 *
 	 * @param node
 	 *            die Knoten
@@ -443,8 +460,6 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 
 	}
 
-	
-
 	@Override
 	public void update(K key, V value) {
 		if (containsKey(key) == true)
@@ -455,11 +470,11 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	 * In dieser methode wird der Wert mit einem neuen Wert aktualisiert.
 	 *
 	 * @param node
-	 *            the node
+	 *            den Knoten des Wertes
 	 * @param key
-	 *            the key
+	 *            Der SchlÃ¼ssel
 	 * @param value
-	 *            the value
+	 *            Der Wert
 	 */
 
 	private void update(Node<K, V> node, K key, V value) {
@@ -472,8 +487,6 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 		}
 	}
 
-	
-
 	@Override
 	public void extractAll(AssociativeArrayTree<K, V> tree) {
 		if (this.root != null) {
@@ -483,13 +496,13 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	}
 
 	/**
-	 * extractAll soll alle Schlussel-Wert-Paare des aktuellen assoziativen Arrays zum 
-	 * übergebenen assoziativen Array hinzufugen
+	 * extractAll soll alle Schlussel-Wert-Paare des aktuellen assoziativen
+	 * Arrays zum Ã¼bergebenen assoziativen Array hinzufugen
 	 *
 	 * @param extractThis
-	 *            the extract this
+	 *            alle SchlÃ¼ssel-Wert-Paare
 	 * @param tree
-	 *            the tree
+	 *            aktueller Baum
 	 */
 
 	private void extractAll(Node<K, V> extractThis, Node<K, V> tree) {
@@ -508,8 +521,6 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 
 		this.root = null;
 	}
-
-	
 
 	@Override
 	public int hashCode() {
@@ -539,18 +550,17 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 
 	@Override
 	public AssociativeArrayTree<?, ?> map(BiFunction<?, ?, ?> lambda) {
-		
+
 		return null;
 	}
 
 	/**
-	 * forEach soll den ubergebenen BiConsumer fur alle Schlüssel-Wert-Paare 
-	 * des assoziativen Arrays ausführen 
+	 * forEach soll den ubergebenen BiConsumer fur alle Schlï¿½ssel-Wert-Paare des
+	 * assoziativen Arrays ausfï¿½hren
 	 */
-	
+
 	@Override
 	public void forEach(BiConsumer<?, ?> lambda) {
-		
 
 	}
 

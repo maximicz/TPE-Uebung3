@@ -129,35 +129,34 @@ public interface AssociativeArray<K, V> {
 	public void update(K key, V value);
 
 	/**
-	 * F�hrt den �bergebenen <code>BiConsumer</code> bei allen
-	 * Schl�ssel-Wert-Paaren des momentanen assoziativen Arrays aus.
+	 * Durchführung des übergebenen <code>BiConsumer</code> bei allen
+	 * Schlüssel-Wert-Paaren des aktuellen assoziativen Arrays aus.
 	 *
 	 * @param lambda
-	 *            Der �bergebene BiConsumer.
+	 *            Der übergebene BiConsumer
 	 */
 
 	public void forEach(BiConsumer<?, ?> lambda);
 
 	/**
-	 * f�gt alle Schl�ssel-Wert-Paare des momentanen associativen Arrays einem
-	 * �bergebenen associativen Arrays hinzu.
+	 * Alle Werte, die dem aktuellen associativeArray angehören, werden dem
+	 * neuen assoziativen Array übergeben.
 	 *
 	 * @param tree
-	 *            �bergebenes assoziatives Array.
+	 *            übergebenes assoziatives Array.
 	 */
 
 	public void extractAll(AssociativeArrayTree<K, V> tree);
 
 	/**
-	 * F�hrt die �bergebene <code>BiFunction</code> bei allen
-	 * Schl�ssel-Wert-Paaren des momentanen assoziativen Arrays aus, erzeugt
+	 * Übergebung des  <code>BiFunction</code> bei allen
+	 * Schlüssel-Wert-Paaren des aktuellen assoziativen Arrays aus, erzeugt
 	 * damit ein neues assoziatives Array.
 	 *
 	 * @param lambda
-	 *            Die �bergebene BiFunction.
+	 *            Die übergebene BiFunction.
 	 * @return Das neue assoziative Array.
 	 */
 
 	public AssociativeArrayTree<?, ?> map(BiFunction<?, ?, ?> lambda);
 }
-
