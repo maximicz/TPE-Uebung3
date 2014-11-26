@@ -1,9 +1,10 @@
+/*
+ * 
+ */
 package hsmannheim.ws2014.tpe.uib1.aufgabe3;
 
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
-
-
 
 /**
  * Hier stehen die Vorlagen zu den Methoden, die in den anderen Klassen genutzt
