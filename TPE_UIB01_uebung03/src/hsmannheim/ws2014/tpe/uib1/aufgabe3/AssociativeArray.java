@@ -105,7 +105,7 @@ public interface AssociativeArray<K, V> {
 	 * @return den Wert <code>V</code> des gelöschten Knoten
 	 */
 
-	public V remove(K key);
+	public void remove(K key);
 
 	/**
 	 * Mit dieser Methode wird das komplette assoziative Array durchlaufen, und

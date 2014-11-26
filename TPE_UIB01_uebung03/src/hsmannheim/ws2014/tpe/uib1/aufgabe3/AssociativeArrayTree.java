@@ -42,7 +42,9 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 		this.root = new Node<K, V>(key, value);
 	}
 
-	
+	public AssociativeArrayTree(Node<K,V> root) {
+		this.root = root;
+	}
 
 	/**
 	 * Die innere Klasse Node dient zur Erzeugung der äußeren Klasse
@@ -58,20 +60,20 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	public static class Node<K, V> {
 
 		/** Das Attribut Schlüssel */
-		protected K key;
+		private K key;
 
 		/** Das Attribut Wert */
-		protected V value;
+		private V value;
 
 		/** Elternknotenattribut. */
-		protected Node<K, V> left, right, parent;
+		private Node<K, V> left, right, parent;
 
 		/**
 		 * Ein Attribut, welches mit einer hashKey()-Methode deklariert wurde.
 		 * Sie gibt also von jedem Knoten den jeweiligen hashwert aus.
 		 */
 
-		protected int hashKey = key.hashCode();
+		private int hashKey = key.hashCode();
 
 		/**
 		 * Mit dem Konstruktor Node werden Knoten für diesen Baum erzeugt. Der
@@ -196,34 +198,13 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 			this.parent = parent;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#hashCode()
-		 */
-
 	}
-
-	// ----------
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see hsmannheim.ws2014.tpe.uib1.aufgabe3.AssociativeArray#clear()
-	 */
 
 	@Override
 	public void clear() {
 		root = null;
 
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * hsmannheim.ws2014.tpe.uib1.aufgabe3.AssociativeArray#containsValue(java
-	 * .lang.Object)
-	 */
 
 	@Override
 	public boolean containsValue(V value) {
@@ -254,14 +235,6 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * hsmannheim.ws2014.tpe.uib1.aufgabe3.AssociativeArray#containsKey(java
-	 * .lang.Object)
-	 */
-
 	@Override
 	public boolean containsKey(K key) {
 		return containsKey(key.hashCode(), root);
@@ -291,14 +264,6 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 			}
 		}
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * hsmannheim.ws2014.tpe.uib1.aufgabe3.AssociativeArray#get(java.lang.Object
-	 * )
-	 */
 
 	@Override
 	public V get(K key) {
@@ -332,24 +297,17 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Methode überprüft ob der baum leer ist
+	 *
 	 * 
-	 * @see hsmannheim.ws2014.tpe.uib1.aufgabe3.AssociativeArray#isEmpty()
+	 * @return true, wenn leer
 	 */
 
 	@Override
 	public boolean isEmpty() {
 		return root == null;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * hsmannheim.ws2014.tpe.uib1.aufgabe3.AssociativeArray#put(java.lang.Object
-	 * , java.lang.Object)
-	 */
 
 	@Override
 	public void put(K key, V value) {
@@ -416,15 +374,39 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	 */
 
 	@Override
-	public V remove(K key) {
-		return null;
-		
-		
-			
-}
-		
+	public void remove(K key) {
+		if (containsKey(key)) {
+			Node<K,V> node = getNode(key);
+			Node<K,V> parentNode = node.parent;
+			if (parentNode.left == node) {
+				parentNode.setLeft(null);
+			} else {
+				parentNode.setRight(null);
+			}
+			putAll(new AssociativeArrayTree<K, V>(node.right));
+			putAll(new AssociativeArrayTree<K, V>(node.left));
+		}
 
+		
+	}
 	
+	public Node<K,V> getNode(K key) {
+			return getNode(key, root);
+	}
+	
+	
+	private Node<K,V> getNode(K key, Node<K,V> node) {
+		if (node != null) {
+			if (node.key.hashCode() == key.hashCode()) {
+				return node;
+			} else if (node.key.hashCode() > key.hashCode()) {
+				return getNode(key, node.left);
+			} else {
+				return getNode(key, node.right);
+			}
+		}
+		return null;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -499,31 +481,21 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	 */
 
 	/*
-	@Override
-	public void forEach(BiConsumer<?, ?> lambda) {
-		forEach(consumer, root);
-
-	}
-
-	/**
-	 * Diese Methode führt den BiConsumer in allen Knoten aus.
-	 *
-	 * @param consumer
-	 *            the consumer
-	 * @param n
-	 *            the n
+	 * @Override public void forEach(BiConsumer<?, ?> lambda) {
+	 * forEach(consumer, root);
+	 * 
+	 * }
+	 * 
+	 * /** Diese Methode führt den BiConsumer in allen Knoten aus.
+	 * 
+	 * @param consumer the consumer
+	 * 
+	 * @param n the n
 	 */
-/*
-	public void forEach(BiConsumer<K, V> consumer, Node n) {
-		if (n != null) {
-			consumer.accept(n.key, n.value);
-			forEach(consumer, n.left);
-			forEach(consumer, n.right);
-		}
-	}
-*\
 	/*
-	 * (non-Javadoc)
+	 * public void forEach(BiConsumer<K, V> consumer, Node n) { if (n != null) {
+	 * consumer.accept(n.key, n.value); forEach(consumer, n.left);
+	 * forEach(consumer, n.right); } }\ /* (non-Javadoc)
 	 * 
 	 * @see
 	 * hsmannheim.ws2014.tpe.uib1.aufgabe3.AssociativeArray#extractAll(hsmannheim
@@ -568,7 +540,6 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	 * Map.
 	 */
 
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -585,6 +556,7 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+		@SuppressWarnings("rawtypes")
 		AssociativeArrayTree other = (AssociativeArrayTree) obj;
 		if (root == null) {
 			if (other.root != null)
@@ -603,7 +575,7 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	@Override
 	public void forEach(BiConsumer<?, ?> lambda) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
