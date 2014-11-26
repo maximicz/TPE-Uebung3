@@ -42,6 +42,8 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 		this.root = new Node<K, V>(key, value);
 	}
 
+	
+
 	/**
 	 * Die innere Klasse Node dient zur Erzeugung der äußeren Klasse
 	 * AssociativeArrayTree. Die innere Klasse hat darüber hinaus die Funktion,
@@ -415,8 +417,14 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 
 	@Override
 	public V remove(K key) {
+		return null;
+		
+		
+			
+}
+		
 
-	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -490,6 +498,7 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	 * .function.BiConsumer)
 	 */
 
+	/*
 	@Override
 	public void forEach(BiConsumer<?, ?> lambda) {
 		forEach(consumer, root);
@@ -504,7 +513,7 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	 * @param n
 	 *            the n
 	 */
-
+/*
 	public void forEach(BiConsumer<K, V> consumer, Node n) {
 		if (n != null) {
 			consumer.accept(n.key, n.value);
@@ -512,7 +521,7 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 			forEach(consumer, n.right);
 		}
 	}
-
+*\
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -559,11 +568,6 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	 * Map.
 	 */
 
-	@Override
-	public void map() {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public int hashCode() {
@@ -588,6 +592,18 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 		} else if (!root.equals(other.root))
 			return false;
 		return true;
+	}
+
+	@Override
+	public AssociativeArrayTree<?, ?> map(BiFunction<?, ?, ?> lambda) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void forEach(BiConsumer<?, ?> lambda) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

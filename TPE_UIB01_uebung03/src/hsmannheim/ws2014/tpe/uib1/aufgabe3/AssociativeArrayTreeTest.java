@@ -8,7 +8,6 @@ import java.util.function.BiFunction;
 
 public class AssociativeArrayTreeTest {
 
-	public class JunitTestArray {
 
 		int summe = 0;
 		int counter = 0;
@@ -69,4 +68,3 @@ public class AssociativeArrayTreeTest {
 
 		}
 	}
-}
