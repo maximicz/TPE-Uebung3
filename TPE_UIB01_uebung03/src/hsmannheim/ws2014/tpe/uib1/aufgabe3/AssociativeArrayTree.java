@@ -539,7 +539,7 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 
 	@Override
 	public AssociativeArrayTree<?, ?> map(BiFunction<?, ?, ?> lambda) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -550,7 +550,7 @@ public class AssociativeArrayTree<K, V> implements AssociativeArray<K, V> {
 	
 	@Override
 	public void forEach(BiConsumer<?, ?> lambda) {
-		// TODO Auto-generated method stub
+		
 
 	}
 

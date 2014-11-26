@@ -3,7 +3,7 @@
  */
 package hsmannheim.ws2014.tpe.uib1.aufgabe3;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class StringAssociativeArray.
  *
@@ -12,10 +12,10 @@ package hsmannheim.ws2014.tpe.uib1.aufgabe3;
 public class StringAssociativeArray<V> extends AssociativeArrayTree<String, V> {
 
 	/**
-	 * Instantiates a new string associative array.
+	 * Initialisiert ein neues string associative array.
 	 *
-	 * @param key the key
-	 * @param value the value
+	 * @param key der Schlüssel
+	 * @param value der Wert
 	 */
 	public StringAssociativeArray(String key, V value) {
 		super(key, value);
